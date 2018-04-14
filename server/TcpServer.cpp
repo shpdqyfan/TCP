@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include <thread>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h> 
@@ -19,14 +18,12 @@
 
 using namespace Api;
 
-static std::unique_ptr<Session> mySession;
-
 int main(int argc, char* argv[])
 {
     if(3 != argc)
     {
-        std::cout<<" parameter error"<<std::endl;
-		exit(1);
+        //std::cout<<" parameter error"<<std::endl;
+		//exit(1);
 	}
 
     std::cout<<"Tcp server start"<<std::endl;
@@ -38,8 +35,13 @@ int main(int argc, char* argv[])
         exit(1);
     }
 
-    std::string listenIp = argv[1];
-	int listenPort = atoi(argv[2]);
+    //std::string listenIp = argv[1];
+	//int listenPort = atoi(argv[2]);
+
+    std::string listenIp("10.13.13.108");
+	int listenPort = atoi(argv[1]);
+
+    std::cout<<"Tcp server ip="<<listenIp<<", port="<<listenPort<<std::endl;
 	
     struct sockaddr_in listenAddress;
 	struct sockaddr_in remoteAddress;
@@ -85,9 +87,10 @@ int main(int argc, char* argv[])
         int clientPort = ntohs(remoteAddress.sin_port);
         std::string clientInfo = clientIp + ":" + std::to_string(clientPort);
         Session* s = new Session(clientInfo, cfd);
-        mySession = (std::unique_ptr<Session>)(s);
-        mySession->initSession();
+        s->initSession();
         std::cout<<"Tcp server session has been created"<<std::endl;
+
+        sleep(20);
     }
     
     close(sfd);

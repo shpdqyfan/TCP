@@ -22,9 +22,9 @@ add_subdirectory(Thread)
 #reference the objects using an expression of the form $<TARGET_OBJECTS:objlib> as a source
 add_library(${PROJECT_NAME} 
             SHARED
-            $<TARGET_OBJECTS:session>
+            $<TARGET_OBJECTS:thread>
             $<TARGET_OBJECTS:socket>
-            $<TARGET_OBJECTS:thread>)
+            $<TARGET_OBJECTS:session>)
 
 #install(TARGETS ${PROJECT_NAME} DESTINATION ../build/bin)
 

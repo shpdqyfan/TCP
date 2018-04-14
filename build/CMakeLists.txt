@@ -19,7 +19,7 @@ add_subdirectory(../lib bin/baselib)
 
 set(SERVER_SRC ../server/TcpServer.cpp) 
 add_executable(tcpServer ${SERVER_SRC}) 
-target_link_libraries(tcpServer base)
+target_link_libraries(tcpServer base pthread)
 
 set(CLIENT_SRC ../client/TcpClient.cpp) 
 add_executable(tcpClient ${CLIENT_SRC}) 

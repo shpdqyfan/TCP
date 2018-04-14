@@ -16,11 +16,19 @@
 
 using namespace Api;
 
-static const std::string ServerIp("127.0.0.1");
-static const int ServerPort = 5050;
+static const std::string ServerIp("10.13.13.108");
+static int ServerPort = 0;
 
-int main()
+int main(int argc, char* argv[])
 {
+    if(3 != argc)
+    {
+        //std::cout<<" parameter error"<<std::endl;
+		//exit(1);
+	}
+
+    ServerPort = atoi(argv[1]);
+    
     std::cout<<"Tcp client start"<<std::endl;
 
     int sfd = Socket::createSocket(AF_INET, SOCK_STREAM);

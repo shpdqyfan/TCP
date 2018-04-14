@@ -28,6 +28,7 @@ Session::~Session()
 {
     std::cout<<"Session, deconstruct"<<std::endl;
     close(mySocketFd);
+    join();
 }
 
 const std::string& Session::getClientInfo() const
@@ -136,7 +137,11 @@ void Session::handleIO()
 
 void Session::run()
 {
+    std::cout<<"Session, run start"<<std::endl;
+    
     myState = ENABLED;
     mainIO();
+
+    std::cout<<"Session, run end"<<std::endl;
 }
 

@@ -49,6 +49,8 @@ int Socket::bindTo(int sfd, const struct sockaddr* saddr, int len)
         return -1;
     }
 
+    std::cout<<"bindTo, succ, sfd="<<sfd<<std::endl;
+
     return 0;
 }
 
@@ -59,6 +61,8 @@ int Socket::listenTo(int sfd)
         std::cout<<"listenTo, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<std::endl;
         return -1;
     }
+
+    std::cout<<"listenTo, succ, sfd="<<sfd<<std::endl;
 
     return 0;
 }
@@ -72,6 +76,8 @@ int Socket::acceptFrom(int sfd, struct sockaddr* saddr)
         std::cout<<"acceptFrom, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<std::endl;
         return -1;
     }
+    
+    std::cout<<"acceptFrom, succ, sfd="<<sfd<<std::endl;
 
     return newfd;
 }
@@ -204,7 +210,7 @@ bool Socket::checkConnectNonblockMode(int sfd)
     {
         
         int rlt = select(sfd + 1, &rfds, &wfds, NULL, NULL);
-        std::cout<<"checkConnectNonblockMode, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<std::endl;
+        std::cout<<"checkConnectNonblockMode, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<", rlt="<<rlt<<std::endl;
 
         if(-1 == rlt)
         {
@@ -218,21 +224,21 @@ bool Socket::checkConnectNonblockMode(int sfd)
                 return false;
             }
         }
-    }
 
-    if(FD_ISSET(sfd, &rfds) || FD_ISSET(sfd, &wfds))
-    {
-        int error = 0;
-        socklen_t len = sizeof error;
-        getsockopt(sfd, SOL_SOCKET, SO_ERROR, &error, &len);
-        std::cout<<"checkConnectNonblockMode, sfd="<<sfd<<", error="<<error<<std::endl;
-        if(error)  	
+        if(FD_ISSET(sfd, &rfds) || FD_ISSET(sfd, &wfds))
         {
-            return false;
-        }
-        else
-        {
-            return true;
+            int error = 0;
+            socklen_t len = sizeof error;
+            getsockopt(sfd, SOL_SOCKET, SO_ERROR, &error, &len);
+            std::cout<<"checkConnectNonblockMode, sfd="<<sfd<<", error="<<error<<std::endl;
+            if(error)  	
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
