@@ -129,10 +129,11 @@ void Session::mainIO()
 void Session::handleIO()
 {
     //just for test, actually we should have a header which carry the length of buf sent from client
-    char buf[256];
-    memset(buf, 0, 256);
-    Socket::recvMsgNonblockMode(mySocketFd, (void*)buf, 256);
-    std::cout<<"Session, handleIO buf="<<std::endl;
+    char buf[18];
+    memset(buf, 0, 18);
+    Socket::recvMsgNonblockMode(mySocketFd, (void*)buf, 18);
+    std::string content(buf);
+    std::cout<<"Session, handleIO buf="<<content<<std::endl;
 }
 
 void Session::run()

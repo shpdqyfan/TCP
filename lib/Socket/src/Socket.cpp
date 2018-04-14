@@ -296,7 +296,7 @@ int Socket::recvMsgNonblockMode(int sfd, void* buf, int len)
     do
     {
         tmpSize = recv(sfd, bufPtr, bufSize, 0);
-        std::cout<<"recvMsgNonblockMode, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<std::endl;
+        std::cout<<"recvMsgNonblockMode, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<", tmpSize="<<tmpSize<<std::endl;
         if(0 == tmpSize)
         {
             std::cout<<"recvMsgNonblockMode, sfd="<<sfd<<" normal closed"<<std::endl;

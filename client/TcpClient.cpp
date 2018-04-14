@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
 
     while(1)
     {
-        std::string buf("I'm client");
+        std::string buf("Coming from client");
 
         if(-1 == Socket::sendMsgNonblockMode(sfd, (void*)buf.c_str(), buf.size()))
         {
