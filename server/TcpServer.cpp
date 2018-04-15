@@ -23,12 +23,12 @@ int main(int argc, char* argv[])
     if(3 != argc)
     {
         //std::cout<<" parameter error"<<std::endl;
-		//exit(1);
-	}
+	//exit(1);
+    }
 
     std::cout<<"Tcp server start"<<std::endl;
 
-	int sfd = Socket::createSocket(AF_INET, SOCK_STREAM);
+    int sfd = Socket::createSocket(AF_INET, SOCK_STREAM);
     if(-1 == sfd)
     {
         std::cout<<"Tcp server createSocket error"<<std::endl;
@@ -36,21 +36,21 @@ int main(int argc, char* argv[])
     }
 
     //std::string listenIp = argv[1];
-	//int listenPort = atoi(argv[2]);
+    //int listenPort = atoi(argv[2]);
 
-    std::string listenIp("10.13.13.108");
-	int listenPort = atoi(argv[1]);
+    std::string listenIp("127.0.0.1");
+    int listenPort = atoi(argv[1]);
 
     std::cout<<"Tcp server ip="<<listenIp<<", port="<<listenPort<<std::endl;
 	
     struct sockaddr_in listenAddress;
-	struct sockaddr_in remoteAddress;
+    struct sockaddr_in remoteAddress;
     memset(&listenAddress, 0, sizeof listenAddress);
-	memset(&remoteAddress, 0, sizeof remoteAddress);
+    memset(&remoteAddress, 0, sizeof remoteAddress);
 	
     listenAddress.sin_family = AF_INET;
     listenAddress.sin_port = htons(listenPort);
-	listenAddress.sin_addr.s_addr = inet_addr(listenIp.c_str());
+    listenAddress.sin_addr.s_addr = inet_addr(listenIp.c_str());
  
     if(-1 == Socket::bindTo(sfd, (struct sockaddr*)&listenAddress, sizeof listenAddress))
     {
@@ -60,8 +60,8 @@ int main(int argc, char* argv[])
     }
 
     if(-1 == Socket::listenTo(sfd))
-    {
-	    std::cout<<"Tcp server listenTo error"<<std::endl;
+    {	    
+	std::cout<<"Tcp server listenTo error"<<std::endl;
         close(sfd);
         exit(1);
     }
