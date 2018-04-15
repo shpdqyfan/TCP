@@ -100,23 +100,23 @@ int Socket::connectNonblockMode(int sfd, const struct sockaddr* saddr)
     int connErrno = (0 == rlt) ? 0 : errno;
     std::cout<<"connectNonblockMode, sfd="<<sfd<<", errno="<<errno<<", "<<strerror(errno)<<std::endl;
 
-	switch(connErrno)
-	{
+    switch(connErrno)
+    {
     case 0:
     case EINPROGRESS:
-	case EISCONN:
-	case EINTR:
-		return 0;
-	case EAGAIN:
-	case EADDRINUSE:
-	case EADDRNOTAVAIL:
-	case ECONNREFUSED:
-	case ENETUNREACH:
-        //for "connect", we can't recall immediately, or error would happened
-		return -1;
-	default:
-		return -1;
-	}
+    case EISCONN:
+    case EINTR:
+	return 0;
+    case EAGAIN:
+    case EADDRINUSE:
+    case EADDRNOTAVAIL:
+    case ECONNREFUSED:
+    case ENETUNREACH:
+    //for "connect", we can't recall immediately, or error would happened
+        return -1;
+    default:
+        return -1;
+    }
 
     return -1;
 }
@@ -242,7 +242,7 @@ bool Socket::checkConnectNonblockMode(int sfd)
         }
     }
 
-	return false;
+    return false;
 }
 
 int Socket::sendMsgNonblockMode(int sfd, void* buf, int len)
