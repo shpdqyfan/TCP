@@ -16,7 +16,7 @@
 
 using namespace Api;
 
-static const std::string ServerIp("10.13.13.108");
+static const std::string ServerIp("127.0.0.1");
 static int ServerPort = 0;
 
 int main(int argc, char* argv[])
@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
     if(3 != argc)
     {
         //std::cout<<" parameter error"<<std::endl;
-		//exit(1);
-	}
+        //exit(1);
+    }
 
     ServerPort = atoi(argv[1]);
     
@@ -46,10 +46,10 @@ int main(int argc, char* argv[])
     } 
 
     struct sockaddr_in serverAddr;	
-	memset(&serverAddr, 0, sizeof serverAddr);
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(ServerIp.c_str());
-	serverAddr.sin_port = htons(ServerPort);
+    memset(&serverAddr, 0, sizeof serverAddr);
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_addr.s_addr = inet_addr(ServerIp.c_str());
+    serverAddr.sin_port = htons(ServerPort);
     if(-1 == Socket::connectNonblockMode(sfd, (struct sockaddr*)&serverAddr))
     {
         std::cout<<"Tcp client connectNonblockMode error"<<std::endl;
